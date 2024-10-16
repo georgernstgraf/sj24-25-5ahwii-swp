@@ -1,0 +1,58 @@
+div {
+    border: 1px solid black;
+    padding-top: 5px;
+}
+body {
+    text-align: center;
+}
+
+main {
+    display: grid;
+    grid-gap: 5px;
+    margin: 5px;
+}
+
+@media only screen and (min-width: 500px) {
+    main {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas:
+            "enter watch watch"
+            "number date date"
+            "analyze prime fib";
+    }
+}
+@media screen and (max-width: 500px) {
+    main {
+        grid-template-columns: 1fr 1fr 2fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas:
+            "enter enter watch"
+            "number analyze date"
+            "prime prime fib";
+    }
+}
+#enter {
+    grid-area: enter;
+}
+#watch {
+    grid-area: watch;
+}
+#number {
+    grid-area: number;
+}
+#date {
+    grid-area: date;
+    font-size: large;
+    font-weight: bold;
+    color: lightseagreen;
+}
+#analyze {
+    grid-area: analyze;
+}
+#prime {
+    grid-area: prime;
+}
+#fib {
+    grid-area: fib;
+}

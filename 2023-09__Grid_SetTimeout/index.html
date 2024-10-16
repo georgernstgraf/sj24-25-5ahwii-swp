@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Rabbit Hole</title>
+        <link rel="icon" href="data:," />
+        <link rel="stylesheet" href="../css/solarized.css" />
+        <link rel="stylesheet" href="grid.css" />
+        <script src="script.js" type="module" defer></script>
+    </head>
+    <body>
+        <div id="controls">
+            <label for="posX">zu Spalte (1-7)</label>
+            <input
+                type="number"
+                name="posX"
+                id="posX"
+                min="1"
+                max="7"
+                value="1"
+            />
+            <label for="posY">zu Zeile (1-7)</label>
+            <input
+                type="number"
+                name="posY"
+                id="posY"
+                min="1"
+                max="7"
+                value="1"
+            />
+            <button id="jump">jump</button>
+            <label id="labele" for="mS" style="margin-left: 2rem"
+                >Millisekunden</label
+            >
+            <input
+                type="number"
+                name="mS"
+                id="mS"
+                min="20"
+                max="3000"
+                value="350"
+            />
+            <button type="button" id="startStop"></button>
+        </div>
+        <div id="grid">
+            <img src="rabbit.png" id="bunny" />
+        </div>
+    </body>
+</html>

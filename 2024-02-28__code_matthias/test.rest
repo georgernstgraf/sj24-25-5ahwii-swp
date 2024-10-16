@@ -1,0 +1,14 @@
+GET http://localhost:3000/users
+###
+GET http://localhost:3000/usershtml
+###
+GET http://localhost:3000/songs
+###
+GET http://localhost:3000/playlists
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "username": "John Doe"
+}

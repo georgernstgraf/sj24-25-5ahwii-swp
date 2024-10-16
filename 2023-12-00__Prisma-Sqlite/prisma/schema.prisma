@@ -1,0 +1,19 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./Test.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+model Beispieltabelle {
+  Personalnummer Int     @id @unique(map: "sqlite_autoindex_Beispieltabelle_1") @default(autoincrement())
+  Name           String?
+  Vorname        String?
+  Gehalt         Float?
+}

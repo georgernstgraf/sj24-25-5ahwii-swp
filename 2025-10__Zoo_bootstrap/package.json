@@ -1,0 +1,25 @@
+{
+    "name": "4hwii_plf4_prisma_seed_select",
+    "version": "1.0.0",
+    "description": "## Thema Datenmodellierung, Seeding und Queries",
+    "main": "index.js",
+    "scripts": {
+        "seed": "npx prisma db seed",
+        "seed-dev": "node --inspect seed.js",
+        "query-dev": "node --inspect query.js",
+        "htmx": "node app.js"
+    },
+    "prisma": {
+        "seed": "node seed.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@faker-js/faker": "^8.4.1",
+        "@prisma/client": "^5.11.0",
+        "ejs": "^3.1.9",
+        "express": "^4.19.2",
+        "prisma": "^5.11.0"
+    }
+}

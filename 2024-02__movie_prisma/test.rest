@@ -1,0 +1,31 @@
+###
+GET http://localhost:3000/users
+
+
+###
+GET http://localhost:3000/genres
+
+###
+GET http://localhost:3000/movie/2104
+
+###
+GET http://localhost:3000/movies
+
+###
+POST http://localhost:3000/movie
+Content-Type: application/json
+
+{
+  "title": "Georg aufgeregt in der Schule",
+  "length": 100,
+  "description": "Ein Aufregendes Abenteuer mit vielen lustigen Technologien",
+  "director": "Eigenproduktion: E.H",
+  "genreId": 5
+}
+###
+PUT http://localhost:3000/movie/2102
+Content-Type: application/json
+
+{
+  "title": "test"
+}
