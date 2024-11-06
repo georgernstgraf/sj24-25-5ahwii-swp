@@ -1,8 +1,12 @@
 # 5AHWII SJ2425
 
+##
+
+- find / tree
+
 ## 2024-10-23
 
-HÜ: Implentierung von 
+HÜ: Implentierung von
 
 - Login
 - Session / Cookies
