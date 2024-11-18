@@ -134,3 +134,4 @@ node_modules/
 # .pnp.*
 2023-12-13__node_prisma/prisma/dev.db
 2023-12-13__node_prisma/prisma/dev.db-journal
+2024-11-13_sql/w3.sqlite
