@@ -17,6 +17,7 @@ export function leibniz(): [number, number] {
   }
 }
 function nearEnough(a: number, b: number): boolean {
+  cd;
   //const differenz = a - b;
   //const betrag = Math.abs(differenz);
   //if (betrag < tolerance) {
