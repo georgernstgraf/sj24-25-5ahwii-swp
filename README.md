@@ -1,7 +1,11 @@
 # 5AHWII SJ2425
 
-##
+## 2024-12-18 
 
+- bcrypt
+- recursion:
+  <https://youtu.be/DKCbsiDBN6c>
+  <https://youtu.be/MILZhs5ilQs>
 - find / tree
 
 ## 2024-10-23
