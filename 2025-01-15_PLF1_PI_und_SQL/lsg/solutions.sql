@@ -37,9 +37,9 @@ WHERE
 DELETE FROM
     person
 WHERE
-    id IN (
+    id NOT IN (
         SELECT
-            max(id)
+            min(id)
         FROM
             person
         WHERE
@@ -53,6 +53,34 @@ WHERE
                 HAVING
                     count() > 1
             )
+        GROUP BY
+            email
+    );
+
+-- delete duplicate emails Lösung BEN
+DELETE FROM
+    person
+WHERE
+    id NOT IN (
+        SELECT
+            min(id)
+        FROM
+            person
+        GROUP BY
+            email
+    );
+
+-- bzw amal nur suchen
+SELECT
+    *
+FROM
+    person
+WHERE
+    id NOT IN (
+        SELECT
+            min(id)
+        FROM
+            person
         GROUP BY
             email
     );

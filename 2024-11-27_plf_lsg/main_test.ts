@@ -1,4 +1,4 @@
-import { assertAlmostEquals, assertEquals } from "@std/assert";
+import { assertAlmostEquals, assertEquals } from "jsr:@std/assert";
 import { leibniz, tolerance } from "./main.ts";
 
 Deno.test(function bubu() {
