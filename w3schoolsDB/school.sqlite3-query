@@ -1,0 +1,6 @@
+-- database: /home/georg/gits/5ahwii/unt/GRG-DBI/w3schools DB/w3schools.sqlite
+-- Use the ▷ button in the top right corner to run the entire file.
+SELECT
+    *
+FROM
+    CUSTOMERS;
