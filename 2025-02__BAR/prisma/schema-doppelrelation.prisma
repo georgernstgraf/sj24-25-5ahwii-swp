@@ -28,22 +28,25 @@ datasource db {
 // .quit
 
 model Drink {
-    id      Int          @id @default(autoincrement())
-    name    String
-    ml      Float
-    price   Float
-    alcohol Float
-    orders  DrinkOrder[] @relation("john")
+    id             Int          @id @default(autoincrement())
+    name           String
+    ml             Float
+    price          Float
+    alcohol        Float
+    ordersheute    DrinkOrder[] @relation("heute")
+    orderstomorriw DrinkOrder[] @relation("morgen")
 }
 
 // Model für n:m Beziehung
 model DrinkOrder {
-    id       Int   @id @default(autoincrement())
-    orderId  Int
-    quantity Int
-    order    Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
-    drinkId  Int
-    Drink    Drink @relation("john", fields: [drinkId], references: [id])
+    id            Int    @id @default(autoincrement())
+    orderId       Int
+    quantity      Int
+    order         Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    Drink         Drink? @relation("heute", fields: [drinkId], references: [id])
+    drinkId       Int?
+    DrinkMorgen   Drink? @relation("morgen", fields: [drinkIdMorgen], references: [id])
+    drinkIdMorgen Int?
 }
 
 model Order {
