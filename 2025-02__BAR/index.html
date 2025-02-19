@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Drinks!</h1>
+    <form action="http://localhost:3000/register"
+          method="post"
+          id="input">
+        <label for="i-name">Name: </label>
+        <input type="text"
+               name="name"
+               id="i-name"
+               required>
+        <label for="i-email">Email:</label>
+        <input type="email"
+               name="email"
+               id="i-email"
+               required>
+        <label for="i-pass">Passwort:</label>
+        <input type="passsword"
+               name="password"
+               id="i-pass"
+               required>
+        <button type="submit">Send!</button>
+    </form>
+    <h1>Login</h1>
+    <form action="http://localhost:3000/login"
+          method="post"
+          id="input">
+        <label for="i-email">Email:</label>
+        <input type="email"
+               name="email"
+               id="i-email"
+               required>
+        <label for="i-pass">Passwort:</label>
+        <input type="passsword"
+               name="password"
+               id="i-pass"
+               required>
+        <button type="submit">Send!</button>
+    </form>
+</body>
+
+</html>

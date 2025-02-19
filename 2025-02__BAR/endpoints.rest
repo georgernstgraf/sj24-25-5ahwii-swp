@@ -1,2 +1,12 @@
 ###
 GET http://localhost:3000/menu
+###
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{"name":"Georg Graf","email":"grafg2@spengergasse.at","password":"s3cr3t"}
+### falscher request ohne payloasd
+POST http://localhost:3000/register
+Content-Type: application/json
+###
+
