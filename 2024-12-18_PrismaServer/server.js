@@ -11,11 +11,14 @@ const prisma = new PrismaClient();
 // npm install bcrypt
 const bcrypt = require("bcrypt")
 
+const cors = require("cors")
+const multer  = require('multer')
+
 // Nicht nutzen! Session stattdessen
 // https://www.npmjs.com/package/express-session
 // Wird genutzt um sichere Token zu erstellen
 // npm install jsonwebtoken
-const jwt = require("jsonwebtoken")
+//const jwt = require("jsonwebtoken")
 
 // Server automatisch neu starten lassen:
 // npm i -g nodemon
@@ -26,6 +29,46 @@ const JWT_SECRET = 'my-secure-token'; // Muss ausgetauscht werden für Produktiv
 let app = express();
 
 app.use(express.json());
+
+app.use(cors());
+
+const upload = multer({
+    dest: "uploads/",
+    fileFilter: function(req, file, callback) {
+        let ext = path.extname(file.originalname)
+        if (ext !=='.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+            return callback(new Error('Only images allowed'))
+        }
+        callback(null, true)
+    }
+    // Hier können Dinge wie akzeptierte Dateiformate eingestellt werden
+});
+
+app.post("/menu/:id/upload", upload.single("image"), function(req, res) {
+    console.log(req.file);
+    const id = parseInt(req.params["id"])
+    const tempPath = req.file.path;
+    // Baue den Zielpfad
+    // Nimm den aktuellen Pfad von server.js
+    // füge den Ordner uploads hinzu und den Dateinamen
+    const targetPath = path.join(__dirname,
+        "uploads/" + req.file.originalname);
+    fs.rename(tempPath, targetPath, async err => {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        }
+        const result = await prisma.drink.update({
+            where: {
+                id: id
+            },
+            data: {
+                imagePath: targetPath
+            }
+        })
+        res.send("File uploaded");
+    })
+})
 
 app.post("/register", async function (req, res) {
     const { name, email, password } = req.body;
