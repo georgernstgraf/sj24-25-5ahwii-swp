@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser()); // Use cookie-parser middleware
 app.use(session({
-  secret: "your-secret-key", // Replace with your own secret key
+  secret: process.env.BACKEND_SECRET, // Using environment variable for secret key
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false }, // Set secure to true if using HTTPS
