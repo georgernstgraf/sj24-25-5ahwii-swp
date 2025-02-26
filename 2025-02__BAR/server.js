@@ -1,6 +1,7 @@
-// npm install express
 const express = require("express");
 const bodyParser = require("body-parser"); // Import body-parser
+const session = require("express-session"); // Import express-session
+const cookieParser = require("cookie-parser"); // Import cookie-parser
 // npm install prisma --save-dev
 
 // npx prisma init --datasource-provider sqlite
@@ -20,6 +21,13 @@ let app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(cookieParser()); // Use cookie-parser middleware
+app.use(session({
+  secret: "your-secret-key", // Replace with your own secret key
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }, // Set secure to true if using HTTPS
+}));
 
 const upload = multer({
   dest: "uploads/",
@@ -94,7 +102,9 @@ app.post("/login", async function (req, res) {
     if (!passwordMatch) {
       return res.status(401).send("Password does not match");
     }
-    // Token erstellen
+    // Generate session and send cookie
+    req.session.userId = userRecord.id;
+    res.cookie("sessionId", req.session.id, { httpOnly: true });
     return res.send(`Login successful, your name: ${userRecord.name}`);
   } catch (error) {
     console.log(error);
