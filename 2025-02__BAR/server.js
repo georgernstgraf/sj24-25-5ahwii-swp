@@ -24,8 +24,8 @@ app.use(cors());
 app.use(cookieParser()); // Use cookie-parser middleware
 app.use(session({
   secret: process.env.BACKEND_SECRET, // Using environment variable for secret key
-  // cookie: { secure: false }, // Set secure to true if using HTTPS
-  resave: false,
+  cookie: { secure: false, maxAge: 6e6 }, // Set secure to true if using HTTPS
+  resave: true,
   saveUninitialized: true,
 }));
 
@@ -46,12 +46,10 @@ app.get("/", function (req, res) {
 });
 
 app.get("/test", function (req, res) {
-  const user = {
-    id: req.session.userId,
-    name: req.session.name,
-    email: req.session.email,
-  };
-  res.json(user);
+  if (!req.session.user) {
+    return res.status(401).send("unauthorized");
+  }
+  return res.json(req.session.user);
 });
 app.post("/menu/:id/upload", upload.single("image"), function (req, res) {
   console.log(req.file);
@@ -115,10 +113,8 @@ app.post("/login", async function (req, res) {
       return res.status(401).send("Password does not match");
     }
     // Generate session and send cookie
-    req.session.userId = userRecord.id;
-    req.session.name = userRecord.name;
-    req.session.email = userRecord.email;
-    res.cookie("sessionId", req.session.id, { httpOnly: true });
+    req.session.user = userRecord;
+    //res.cookie("sessionId", req.session.id, { httpOnly: true });
     return res.send(`Login successful, your name: ${userRecord.name}`);
   } catch (error) {
     console.log(error);

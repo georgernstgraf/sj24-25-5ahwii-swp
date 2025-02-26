@@ -8,12 +8,19 @@ Content-Type: application/json
 ### falscher request ohne payloasd
 POST http://localhost:3000/register
 Content-Type: application/json
-### test hager
+### login grafg2
 POST http://localhost:3000/login
 Content-Type: application/x-www-form-urlencoded
 
 email=grafg2%40spengergasse.at&password=s3cr3t
+### login hager
+POST http://localhost:3000/login
+Content-Type: application/x-www-form-urlencoded
+
+email=hager%40spengergasse.at&password=s3cr3t
 ### test georg
 GET http://localhost:3000/test
+Cache-Control: no-store
+Cookie: connect.sid=s%3AF5rrg2pVut7Is0lkr7GVrq-nYnAOKD6C.406Iu0lMaNpbFMWeCYJC0f2w70nlTVniblIBuxH4UIM; Path=/; Expires=Wed, 26 Feb 2025 16:38:29 GMT; HttpOnly
 ###
 
