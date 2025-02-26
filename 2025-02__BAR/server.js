@@ -25,7 +25,6 @@ const multer = require("multer");
 // Zum Starten: nodemon server.js
 
 const port = 3000;
-const JWT_SECRET = "my-secure-token"; // Muss ausgetauscht werden für Produktiveinsatz!
 let app = express();
 
 app.use(express.json());

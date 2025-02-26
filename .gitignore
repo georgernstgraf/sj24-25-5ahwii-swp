@@ -2,10 +2,8 @@
 *.db
 .vscode
 *.sqlite3
+*.sqlite
+*.db
+*.db-journal
 node_modules
-2023-12-13__node_prisma/prisma/dev.db
-2023-12-13__node_prisma/prisma/dev.db-journal
-2024-11-13_sql/w3.sqlite
-2025-01-15_PLF1_PI_und_SQL/lsg/customer.db
-2025-01-15_PLF1_PI_und_SQL/lsg/person.db
-2025-02__BAR/prisma/bar.db-journal
+.env
