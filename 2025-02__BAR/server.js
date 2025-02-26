@@ -24,9 +24,9 @@ app.use(cors());
 app.use(cookieParser()); // Use cookie-parser middleware
 app.use(session({
   secret: process.env.BACKEND_SECRET, // Using environment variable for secret key
+  // cookie: { secure: false }, // Set secure to true if using HTTPS
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }, // Set secure to true if using HTTPS
 }));
 
 const upload = multer({
@@ -41,6 +41,18 @@ const upload = multer({
   // Hier können Dinge wie akzeptierte Dateiformate eingestellt werden
 });
 
+app.get("/", function (req, res) {
+  res.sendFile("index.html", { root: __dirname });
+});
+
+app.get("/test", function (req, res) {
+  const user = {
+    id: req.session.userId,
+    name: req.session.name,
+    email: req.session.email,
+  };
+  res.json(user);
+});
 app.post("/menu/:id/upload", upload.single("image"), function (req, res) {
   console.log(req.file);
   const id = parseInt(req.params["id"]);
@@ -104,6 +116,8 @@ app.post("/login", async function (req, res) {
     }
     // Generate session and send cookie
     req.session.userId = userRecord.id;
+    req.session.name = userRecord.name;
+    req.session.email = userRecord.email;
     res.cookie("sessionId", req.session.id, { httpOnly: true });
     return res.send(`Login successful, your name: ${userRecord.name}`);
   } catch (error) {
