@@ -1,5 +1,9 @@
 # 5AHWII SJ2425
 
+## 2025-02-26__cookies
+
+guide: <https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies>
+
 ## 2025-02-19
 
 private git repos

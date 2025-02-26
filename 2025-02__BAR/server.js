@@ -14,16 +14,6 @@ const bcrypt = require("bcrypt");
 const cors = require("cors");
 const multer = require("multer");
 
-// Nicht nutzen! Session stattdessen
-// https://www.npmjs.com/package/express-session
-// Wird genutzt um sichere Token zu erstellen
-// npm install jsonwebtoken
-//const jwt = require("jsonwebtoken")
-
-// Server automatisch neu starten lassen:
-// npm i -g nodemon
-// Zum Starten: nodemon server.js
-
 const port = 3000;
 let app = express();
 
