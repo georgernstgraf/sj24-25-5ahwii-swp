@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="imageupload">
+        <label for="file">Select file</label>
+        <!-- multiple hier nicht notwendig,
+         nur wenn mehrere Dateien ausgewählt werden-->
+        <input id="file" type="file" multiple>
+        <button onclick="uploadFile(event)">Upload</button>
+    </form>
+
+    <script>
+        function uploadFile(e) {
+            e.preventDefault();
+
+            const file = document.getElementById("file");
+            // Baue ein eigenes Form
+            const formData = new FormData();
+            formData.append("image", file.files[0])
+            fetch("http://localhost:3000/menu/2/upload", {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+        }
+    </script>
+</body>
+</html>

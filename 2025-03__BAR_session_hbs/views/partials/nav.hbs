@@ -1,0 +1,17 @@
+<nav id="nav">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/menu">Drinks Menu</a></li>
+        {{#if session.user}}
+        <li>You ARE logged in</li>
+        <li><a href="/orders">Orders</a></li>
+        <li><a href="/logout">Logout</a></li>
+        {{else}}
+        <li>You are NOT logged in</li>
+        <li><a hx-get="/login"
+               href="#"
+               hx-target="#main">Login</a></li>
+        <li><a href="/register">Register</a></li>
+        {{/if}}
+    </ul>
+</nav>

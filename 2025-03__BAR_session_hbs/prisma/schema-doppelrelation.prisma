@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+// npm install prisma --save-dev
+
+// npx prisma init --datasource-provider sqlite
+
+// Erzeugt SQL Datei, die auf die DB ausgeführt wird
+// npx prisma migrate dev --name init
+
+// Datenbank ansehen
+// npx prisma studio
+
+// Extension installieren
+// In Ordner mit dev.db wechseln
+// sqlite3 dev.db
+// .schema
+// Gibt DDL aus
+// .quit
+
+model Drink {
+    id             Int          @id @default(autoincrement())
+    name           String
+    ml             Float
+    price          Float
+    alcohol        Float
+    ordersheute    DrinkOrder[] @relation("heute")
+    orderstomorriw DrinkOrder[] @relation("morgen")
+}
+
+// Model für n:m Beziehung
+model DrinkOrder {
+    id            Int    @id @default(autoincrement())
+    orderId       Int
+    quantity      Int
+    order         Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    Drink         Drink? @relation("heute", fields: [drinkId], references: [id])
+    drinkId       Int?
+    DrinkMorgen   Drink? @relation("morgen", fields: [drinkIdMorgen], references: [id])
+    drinkIdMorgen Int?
+}
+
+model Order {
+    id         Int          @id @default(autoincrement())
+    createdAt  DateTime     @default(now())
+    drinks     DrinkOrder[]
+    customerId Int
+
+    customer User @relation("CustomerOrders", fields: [customerId], references: [id])
+}
+
+// Wenn wir Order verändern, müssen die bestehenden Einträge aus der DB gelöscht werden!
+model User {
+    id            Int     @id @default(autoincrement())
+    name          String
+    email         String  @unique
+    password      String
+    createdOrders Order[] @relation("CustomerOrders")
+}

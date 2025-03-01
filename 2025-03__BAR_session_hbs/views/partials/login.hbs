@@ -1,0 +1,67 @@
+<form data-hx-post="http://localhost:3000/login"
+      data-hx-target="this"
+      data-hx-swap="outerHTML"
+      data-hx-trigger="submit"
+      hx-on:htmx:after-request="handleLoginResponse(event)"
+      class="login">
+    {{#if error}}
+    <p class="error-message">An Error happened: {{error}}</p>
+    {{/if}}
+    <label for="login-email">Email:</label>
+    <input type="email"
+           name="email"
+           id="login-email"
+           required>
+    <label for="login-pass">Passwort:</label>
+    <input type="password"
+           name="password"
+           id="login-pass">
+    <button type="submit">Send!</button>
+</form>
+
+<script>
+    function handleLoginResponse(event) {
+        // Get the status code from the HTMX event
+        const status = event.detail.xhr.status;
+        console.log(`GRG status: ${status}`);
+        // Different behaviors based on status code
+        if (status === 302) {
+            // Success case - redirect to dashboard or show success message
+            const response = JSON.parse(event.detail.xhr.responseText);
+            if (response.redirect) {
+                window.location.href = response.redirect;
+            }
+            // Optional: show temporary success message
+            showToast("Login successful!", "success");
+        }
+        else if (status === 401) {
+            // Unauthorized - HTMX will already swap in the server response
+            // This should contain the form with error message
+            showToast("Invalid credentials", "error");
+        }
+        else if (status === 500) {
+            // Server error - show a user-friendly message
+            const form = event.detail.elt;
+            form.innerHTML += `
+        <div class="server-error">
+          <p>Something went wrong on our end. Please try again later.</p>
+        </div>
+      `;
+            showToast("Server error occurred", "error");
+        }
+    }
+
+    // Helper function to show toast messages
+    function showToast(message, type) {
+        // Create toast element if you want to show notifications
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
+    }
+</script>

@@ -1,0 +1,23 @@
+<!-- filepath: /home/georg/gits/5ahwii/unt/sj23-24-4ahwii-swp1x/2025-02__BAR/views/layouts/mainlayout.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>{{#if title}}{{title}}{{else}}Bar App{{/if}}</title>
+    <link rel="stylesheet"
+          href="/style.css">
+    <script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"></script>
+    {{!-- Add any additional scripts or stylesheets here --}}
+</head>
+
+<body id="body"
+      hx-get="/body"
+      hx-trigger="load-body">
+    {{{body}}}
+    {{!-- This is a special Handlebars variable for layouts, not a reference to a partial --}}
+</body>
+
+</html>
