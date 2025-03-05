@@ -28,6 +28,9 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
 }));
+// unter localhost:3000/images kann auf die Bilder
+// im upload directory zugegriffen werden
+app.use("/images", express.static("/upload"))
 
 const upload = multer({
   dest: "uploads/",
