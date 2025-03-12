@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Display JSON Data with HTMX and Handlebars</title>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .body {
+            font-size: 14px;
+            color: #555;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 15px;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>API Data</h1>
+    <button hx-get="https://jsonplaceholder.typicode.com/posts/1"
+            hx-target="#output"
+            hx-swap="innerHTML"
+            data-template="card-template">Load Post</button>
+    <button hx-get="https://jsonplaceholder.typicode.com/users/1"
+            hx-target="#output"
+            hx-swap="innerHTML"
+            data-template="user-template">Load User</button>
+    <button hx-get="https://jsonplaceholder.typicode.com/comments/1"
+            hx-target="#output"
+            hx-swap="innerHTML"
+            data-template="comment-template">Load Comment</button>
+
+    <div id="output">
+        Click a button to load data.
+    </div>
+
+    <script id="card-template"
+            type="text/x-handlebars-template">
+        <div class="card">
+            <div class="title">{{title}}</div>
+            <div class="body">{{body}}</div>
+        </div>
+    </script>
+
+    <script id="user-template"
+            type="text/x-handlebars-template">
+        <div class="card">
+            <div class="title">Name: {{name}}</div>
+            <div class="body">Email: {{email}}</div>
+        </div>
+    </script>
+
+    <script id="comment-template"
+            type="text/x-handlebars-template">
+        <div class="card">
+            <div class="title">Comment by: {{name}}</div>
+            <div class="body">{{body}}</div>
+        </div>
+    </script>
+
+    <script>
+        document.body.addEventListener('htmx:afterOnLoad', function (event) {
+            const data = event.detail.xhr.response;
+            const jsonData = JSON.parse(data);
+            const templateId = event.target.getAttribute('data-template');
+            const templateSource = document.getElementById(templateId).innerHTML;
+            const template = Handlebars.compile(templateSource);
+            const html = template(jsonData);
+            document.getElementById('output').innerHTML = html;
+        });
+    </script>
+</body>
+
+</html>

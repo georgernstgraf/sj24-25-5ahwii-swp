@@ -1,5 +1,16 @@
 # 5AHWII SJ2425
 
+## 2025-03-12__roman
+
+Implementiere wie besprochen die funktionen
+
+- toRoman : string (n : int) {}
+- fromRoman : int (r : string) {}
+- isValidRoman : boolean (r : string) {}
+
+Recherchiere, welche Reihenfolge der Zeichen erlaubt ist und implementiere mit
+diesen Erkenntnissen die Prüf-Funktion!
+
 ## 2025-02-26__cookies
 
 guide: <https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies>
