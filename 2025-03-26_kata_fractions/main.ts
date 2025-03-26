@@ -63,14 +63,22 @@ export class Value {
     }
 
     add(other: Value) {
-        if (!(other instanceof Value)) {
-            throw new Error("Value must be an instance of Value");
-        }
-
         const ganzzahl = this.#ganzzahl + other.#ganzzahl;
         const nenner = this.#nenner * other.#nenner;
         const zähler = this.#zähler * other.#nenner +
             other.#zähler * this.#nenner;
         return Value.value_from_string(`${ganzzahl} ${zähler}/${nenner}`);
+    }
+    toString() {
+        if (!this.#zähler && !this.#ganzzahl) {
+            return "0";
+        }
+        if (!this.#zähler) {
+            return `${this.#ganzzahl}`;
+        }
+        if (!this.#ganzzahl) {
+            return `${this.#zähler}/${this.#nenner}`;
+        }
+        return `${this.#ganzzahl} ${this.#zähler}/${this.#nenner}`;
     }
 }

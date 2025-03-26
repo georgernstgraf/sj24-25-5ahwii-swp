@@ -1,12 +1,18 @@
-function* fibo(upper_limit) {
+function* _fibonacci(upper_limit) {
     let a = 0, b = 1;
-    while (a < upper_limit) {
+    while (a <= upper_limit) {
         yield a;
         [a, b] = [b, a + b];
     }
     return "done";
 }
 
-for (let n of fibo(10)) {
+function* natürliche() {
+    let n = 0;
+    while (true) {
+        yield n++;
+    }
+}
+for (const n of natürliche()) {
     console.log(n);
 }

@@ -55,3 +55,9 @@ Deno.test(function addTest() {
     assertEquals(result.zähler, 7);
     assertEquals(result.nenner, 10);
 });
+Deno.test(function stringTest() {
+    const value1 = Value.value_from_string("2 3/4");
+    const value2 = Value.value_from_string("1 1/3");
+    const result = value1.add(value2);
+    assertEquals(result.toString(), "4 1/12");
+});
