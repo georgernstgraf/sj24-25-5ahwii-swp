@@ -1,16 +1,43 @@
+import { assertEquals, assertTrue } from ("@std/assert")
+
 export class Value {
+    #ganzzahl;
+    #zähler;
+    #nenner;
     constructor(ganzzahl, zähler, nenner) {
-        this.ganzzahl = ganzzahl;
-        this.zähler = zähler;
-        this.nenner = nenner;
+        assertEquals(typeof ganzzahl, "number");
+        assertEquals(typeof zähler, "number");
+        assertEquals(typeof nenner, "number");
+        assertTrue(Number.isInteger(ganzzahl));
+        assertTrue(Number.isInteger(zähler));
+        assertTrue(Number.isInteger(nenner));
+        if (nenner < 0) {
+            zähler *= -1;
+            nenner *= -1;
+        }
+        if (nenner === 0) {
+            throw new Error("Nenner darf nicht 0 sein");
+        }
+        this.#ganzzahl = ganzzahl;
+        this.#zähler = zähler;
+        this.#nenner = nenner;
         const kgv = Value.kgv(zähler, nenner);
         if (kgv > 1) {
-            this.zähler /= kgv;
-            this.nenner /= kgv;
+            this.#zähler /= kgv;
+            this.#nenner /= kgv;
         }
-        const zuviel = Math.floor(this.zähler / this.nenner);
-        this.ganzzahl += zuviel;
-        this.zähler -= zuviel * this.nenner;
+        const zuviel = Math.floor(this.#zähler / this.#nenner);
+        this.#ganzzahl += zuviel;
+        this.#zähler -= zuviel * this.#nenner;
+    }
+    get ganzzahl() {
+        return this.#ganzzahl;
+    }
+    get zähler() {
+        return this.#zähler;
+    }
+    get nenner() {
+        return this.#nenner;
     }
     static value_from_string(str) {
         const parts = str.split(" ");
@@ -22,9 +49,7 @@ export class Value {
         }
         return new Value(Number(parts[0]), ...parts[1].split("/").map(Number));
     }
-    static vereinfachen(a, b) {
-        // TODO implement
-    }
+    
     static kgv(a, b) {
         let rv = 1;
         const upper = Math.floor(Math.sqrt(a));
@@ -37,14 +62,15 @@ export class Value {
         }
         return rv;
     }
-    add(value) {
-        if (!(value instanceof Value)) {
+    add(other) {
+        if (!(other instanceof Value)) {
             throw new Error("Value must be an instance of Value");
         }
-        const numerator = this.zähler * value.denominator +
-            value.numerator * this.nenner;
-        const denominator = this.nenner * value.denominator;
-        return new Value(numerator, denominator);
+
+        const ganzzahl = this.#ganzzahl + other.#ganzzahl;
+        const nenner = this.#nenner * other.#nenner;
+        const zähler = this.#zähler * other.#nenner + other.#zähler * this.#nenner;
+        return Value.value_from_string(`${ganzzahl} ${zähler}/${nenner}`);
     }
 }
 // Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
