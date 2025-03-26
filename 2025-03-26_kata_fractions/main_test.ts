@@ -1,5 +1,5 @@
 import { assertEquals } from "@std/assert";
-import { Value } from "./main.js";
+import { Value } from "./main.ts";
 
 Deno.test(function kgvTest() {
     assertEquals(Value.kgv(14, 8), 2);
@@ -8,7 +8,7 @@ Deno.test(function kgvTest() {
     assertEquals(Value.kgv(12, 8), 4);
 });
 Deno.test(function valueFromStringTest() {
-    let value = Value.value_from_string("1 1/2");
+    let value: Value = Value.value_from_string("1 1/2");
     assertEquals(value.ganzzahl, 1);
     assertEquals(value.zähler, 1);
     assertEquals(value.nenner, 2);
