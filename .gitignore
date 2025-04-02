@@ -7,3 +7,5 @@
 *.db-journal
 node_modules
 .env
+tmp
+2025-04-02__bring_npm_modules_into_the_browser/browser.js
