@@ -1,5 +1,9 @@
 # 5AHWII SJ2425
 
+## 2025-04-02__neverthrow
+
+Siehe Aufgabe in "2025-04-02__neverthrow"
+
 ## 2025-03-12__roman
 
 Implementiere wie besprochen die funktionen
