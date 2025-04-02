@@ -6,7 +6,7 @@ class TicketAutomat {
     #ausgabe;
     constructor(initialGeld) {
         this.einnahmenGesamt = initialGeld;
-        this.ausgabe = 'Willkommen';
+        this.ausgabe = "Willkommen";
         this.#eingeworfen = 0;
         this.#ziel = undefined;
     }
@@ -15,7 +15,7 @@ class TicketAutomat {
             throw new Error("please don't NaN with me");
         }
         if (geld < 0) {
-            throw new Error('Ich geb nix her!');
+            throw new Error("Ich geb nix her!");
         }
         this.#eingeworfen += geld;
         this.calcFehlend();
@@ -23,17 +23,16 @@ class TicketAutomat {
     zielEinstellen(ziel) {
         const preis = zieleUndPreise[ziel];
         if (preis == undefined) {
-            throw new Error('Dorthin fahre ich nicht');
+            throw new Error("Dorthin fahre ich nicht");
         }
         this.#ziel = ziel;
         this.calcFehlend();
     }
     calcFehlend() {
         const fehlend = this.gesamtPreis - this.eingeworfen;
-        this.ausgabe =
-            fehlend <= 0
-                ? 'Ticket kann gekauft werden'
-                : `Es fehlen noch € ${fehlend}`;
+        this.ausgabe = fehlend <= 0
+            ? "Ticket kann gekauft werden"
+            : `Es fehlen noch € ${fehlend}`;
     }
     set einnahmenGesamt(was) {
         this.#einnahmenGesamt = was;
@@ -60,13 +59,13 @@ class TicketAutomat {
         return this.#anzahlPersonen;
     }
     set anzahl(formInput) {
-        console.log('set anzahl');
+        console.log("set anzahl");
         console.log(formInput);
         if (isNaN(formInput)) {
             throw new Error("please don't NaN with me");
         }
         if (formInput < 1 || formInput > 10) {
-            throw new Error('falsche Anzahl Personen');
+            throw new Error("falsche Anzahl Personen");
         }
         this.#anzahlPersonen = formInput;
         this.calcFehlend();
@@ -76,7 +75,7 @@ class TicketAutomat {
         const ticket = new Ticket(
             this.#anzahlPersonen,
             this.#ziel,
-            this.#eingeworfen
+            this.#eingeworfen,
         );
         // Guthaben zurücksetzen
         this.#eingeworfen = 0;
@@ -98,7 +97,7 @@ class Ticket {
         this.#gegeben = gegeben;
         this.#summe = zieleUndPreise[this.#ziel] * this.#anzahlPersonen;
         if (this.#gegeben < this.#summe) {
-            throw new Error('nicht genug gegeben');
+            throw new Error("nicht genug gegeben");
         }
     }
     get summe() {
@@ -131,19 +130,19 @@ const zieleUndPreise = {
     Klagenfurt: 60,
     Linz: 40,
     Salzburg: 60,
-    'St. Pölten': 15
+    "St. Pölten": 15,
 };
 // 3.DOM Node Refs
-const einwerfenInput = document.getElementById('einwerfenBetrag');
-const einwerfenButton = document.getElementById('einwerfenButton');
-const zielSelect = document.getElementById('ziel');
-const anzahlPersonenInput = document.getElementById('anzahlPersonen');
-const fahrpreisSpan = document.getElementById('fahrpreis');
-const guthabenSpan = document.getElementById('guthaben');
-const ticketAusgabeTextarea = document.getElementById('ticketAusgabe');
-const einnahmenSpan = document.getElementById('einnahmen');
-const ticketKaufen = document.getElementById('ticketKaufen');
-const resetBtn = document.getElementById('reset');
+const einwerfenInput = document.getElementById("einwerfenBetrag");
+const einwerfenButton = document.getElementById("einwerfenButton");
+const zielSelect = document.getElementById("ziel");
+const anzahlPersonenInput = document.getElementById("anzahlPersonen");
+const fahrpreisSpan = document.getElementById("fahrpreis");
+const guthabenSpan = document.getElementById("guthaben");
+const ticketAusgabeTextarea = document.getElementById("ticketAusgabe");
+const einnahmenSpan = document.getElementById("einnahmen");
+const ticketKaufen = document.getElementById("ticketKaufen");
+const resetBtn = document.getElementById("reset");
 // Static references to DOM nodes needed after the start of the application;
 // 4.DOM Node Creation Fn's
 // no need for this
@@ -173,7 +172,7 @@ function onEinwurf() {
     const geld = einwerfenInput.valueAsNumber;
     try {
         automat.einwerfen(geld);
-        einwerfenInput.value = '';
+        einwerfenInput.value = "";
     } catch (err) {
         automat.ausgabe = err.message;
     } finally {
@@ -196,7 +195,7 @@ function onTicketKaufen() {
 function onAnzahlChange() {
     const x = new Date();
     console.log(
-        `onAnzahlChange fired ${x.getUTCMinutes()}:${x.getUTCSeconds()}:${x.getUTCMilliseconds()}`
+        `onAnzahlChange fired ${x.getUTCMinutes()}:${x.getUTCSeconds()}:${x.getUTCMilliseconds()}`,
     );
     try {
         automat.anzahl = anzahlPersonenInput.valueAsNumber;
@@ -214,25 +213,25 @@ function onReset() {
 // These are the initial bindings of the event handlers, i.e.register the handlers of Pt. 6 with the DOM Node Refs of;
 // Pt. 3;
 const automat = new TicketAutomat(150);
-einwerfenInput.addEventListener('keyup', (e) => {
-    if (e.key != 'Enter') {
+einwerfenInput.addEventListener("keyup", (e) => {
+    if (e.key != "Enter") {
         return;
     }
     onEinwurf();
 });
-einwerfenButton.addEventListener('click', () => {
+einwerfenButton.addEventListener("click", () => {
     onEinwurf();
 });
-zielSelect.addEventListener('change', onZielSelect);
-anzahlPersonenInput.addEventListener('change', onAnzahlChange);
-ticketKaufen.addEventListener('click', onTicketKaufen);
-resetBtn.addEventListener('click', onReset);
+zielSelect.addEventListener("change", onZielSelect);
+anzahlPersonenInput.addEventListener("change", onAnzahlChange);
+ticketKaufen.addEventListener("click", onTicketKaufen);
+resetBtn.addEventListener("click", onReset);
 
 // 8.INITIAL RENDER
 // Here will call the render function (Pt. 5) to render the initial state of the application;
 zielSelect.innerHTML = Object.keys(zieleUndPreise)
     .map((e) => `<option value="${e}">${e}</option>`)
-    .join('\n');
+    .join("\n");
 automat.zielEinstellen(zielSelect.value);
 automat.anzahl = anzahlPersonenInput.valueAsNumber;
 render();
